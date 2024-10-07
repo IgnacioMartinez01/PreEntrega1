@@ -9,7 +9,7 @@ export default function Register() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    /*
+    
     const handleSingUp = async (e) => {
         e.preventDefault();
         if (!email || !username || !password) {
@@ -39,13 +39,13 @@ export default function Register() {
         } catch (error) {
             setError('Error en el servidor');
         }
-    };*/
+    };
 
-    
+    /*
     const handleSingUp = (event) => {
         event.preventDefault();
         console.log('Registro:', username, email, password);
-    };
+    };*/
 
     return (
         <div className="registro-container">

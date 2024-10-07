@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import './Login.css';
-import Registro from './Registro';
+import React, { useState } from "react";
+import "./Login.css";
+import Registro from "./Registro";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+function Login({ onLogin }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
+    onLogin();
+    navigate("/feed");
+
     event.preventDefault();
     // Aquí iría la lógica para enviar los datos al servidor
-    console.log('Username:', username);
-    console.log('Password:', password);
+    console.log("Username:", username);
+    console.log("Password:", password);
   };
 
   return (
@@ -31,7 +36,9 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           className="input"
         />
-        <button type="submit" className="button">Iniciar Sesión</button>
+        <button type="submit" className="button">
+          Iniciar Sesión
+        </button>
       </form>
     </div>
   );
