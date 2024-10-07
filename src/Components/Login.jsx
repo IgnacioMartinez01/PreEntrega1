@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Login.css'; 
+import './Login.css';
+import Registro from './Registro';
 
 function Login() {
   const [username, setUsername] = useState('');
