@@ -9,8 +9,8 @@ export default function Register() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    
-    const handleSingUp = async (e) => {
+
+    const handleRegisters = async (e) => {
         e.preventDefault();
         if (!email || !username || !password) {
             setError('Todos los campos son obligatorios');
@@ -18,7 +18,7 @@ export default function Register() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/register', {
+            const response = await fetch('http://localhost:3000/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,22 +41,17 @@ export default function Register() {
         }
     };
 
-    /*
-    const handleSingUp = (event) => {
-        event.preventDefault();
-        console.log('Registro:', username, email, password);
-    };*/
-
     return (
         <div className="registro-container">
             <h2>Registro</h2>
-            <form onSubmit={handleSingUp}>
+            <form onSubmit={handleRegisters}>
                 <input
                     type="text"
                     placeholder="Usuario"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="input"
+                    required
                 />
                 <input
                     type="email"
@@ -64,6 +59,7 @@ export default function Register() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="input"
+                    required
                 />
                 <input
                     type="password"
@@ -71,9 +67,12 @@ export default function Register() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="input"
+                    required
                 />
                 <button type="submit" className="button">Registrarse</button>
             </form>
+            {error && <p className="error">{error}</p>}
+            {success && <p className="success">{success}</p>}
         </div>
     );
 }
