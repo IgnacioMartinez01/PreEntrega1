@@ -10,16 +10,28 @@ function App() {
   const [isRegistered, setIsRegistered] = useState(false);
 
   const handleLogin = () => {
-    setIsLoggedIn(true); // Simula que el usuario se ha
+    setIsLoggedIn(true); // Simula que el usuario se ha logeado
   };
 
   console.log(isLoggedIn);
+
+
+  //LocalStorage para almacenar el estado del login al reiniciarse
+  /*const [text, setText] = useState(window.localStorage.getItem("text"));
+  const setLocalStorage = value =>{
+    try{
+      setText(value)
+      window.localStorage.setItem("text",value)
+    } catch (error){
+      console.error(error)
+    }
+  }*/
 
   return (
     <BrowserRouter>
       <Routes>
         {/* Ruta de registro */}
-        <Route exact path="/" element={<Registro />} />
+       
 
         {/* Ruta de login */}
         <Route exact path="/login" element={<Login onLogin={handleLogin} />} />

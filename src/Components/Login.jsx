@@ -10,7 +10,8 @@ function Login({ onLogin }) {
 
   const handleSubmit = (event) => {
     onLogin();
-    navigate("/feed");
+    /*navigate("/feed");
+    navigate("perfil");*/
 
     event.preventDefault();
     // Aquí iría la lógica para enviar los datos al servidor

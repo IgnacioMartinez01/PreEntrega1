@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+DOCUMENTACIÓN INICIAL PRE-ENTREGA 1:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Proyecto:
+Para iniciar con este informe, debemos mencionar que se trata de un proyecto el cual consiste sobre la creación de una red social similar a la ya conocida, Instagram.
+Para la cual se aplicarán conocimientos ya adquiridos como el uso de React para la creación, comportamiento y renderización de la web creada.
+Se implementarán Hooks tales como UseState() para modificación de estados, así como el Hook de UseEffect() para dar comportamiento a nuestra aplicación.
+En esta primera entrega hemos usado React para la creación de una página web, la cual está creada mediante, uso de componentes, localizados en una carpeta específica Components, la cual como indica, aloja los componentes para luego usarlos en App() donde posteriormente se renderizaron.
+Le aplicamos estilos mediante un archivo Css, el cual posteriormente es importado al App para que estos estilos sean aplicados en nuestros componentes.
+Cabe destacar que se implementa el uso de él Hook “UseState()” con el cual damos comportamiento tanto al campo Usuario, como el campo Password.
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Para loguearse en nuestra página a través de renders condicionales indicamos el comportamiento sobre cómo debe comportarse nuestra página. Se implementó de la siguiente manera:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+return (
+    <BrowserRouter>
+      <Routes>
+        {/* Ruta de registro */}
+       
 
-### `npm test`
+        {/* Ruta de login */}
+        <Route exact path="/login" element={<Login onLogin={handleLogin} />} />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+        {/* Ruta de perfil con protección de autenticación */}
+        <Route
+          exact
+          path="/perfil"
+          element={isLoggedIn ? <Perfil /> : <Navigate to="/login" replace />}
+        />
 
-### `npm run build`
+        {/* Ruta del feed con protección de autenticación */}
+        <Route
+          exact
+          path="/feed"
+          element={isLoggedIn ? <Feed /> : <Navigate to="/login" replace />}
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+En la siguiente línea: 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<Route
+exact path=”/perfil”>
+element={isLoggedIn ? <Perfil/> : <Navigate to=”/login” replace/>}/>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Básicamente lo que se plantea es que, si el usuario está logueado lo lleve al Feed y si no lo está lo lleve a al Login nuevamente, por no estar logueado.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Luego en cuanto a la Feed en principio, no se ha colocado nada, pero debería tener presente fotos, perfiles etc de usuarios registrados
+Lo mismo ocurre con la sección del Perfil, la cual está falta de datos, pero en ella debería aparecer la información del usuario registrado, es decir de nosotros.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+Manual de usuario
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Presentamos una aplicación similar a Instagram, con funcionalidades dinámicas y fáciles de entender cómo navegar a través de un feed con posteos, fotos y videos, al mismo tiempo que interactuar sobre los mismos e interactuar con otros usuarios de la app.
 
-### Analyzing the Bundle Size
+Lo primero que se va a encontrar como usuario va a ser una sección de Registro. Para utilizar la app los usuarios deberán tener una cuenta creada y posteriormente loguearse a ella. Para el registro se le pedirá ingresar 3 campos; nombre de usuario, email y una contraseña. Una vez ingresados dichos datos deberá dar click al botón “Registrarse”. Dicha acción le creará una cuenta para poder utilizar nuestra app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Posteriormente, el usuario será dirigido a una pestaña de Login. La acción de “loguearse” se refiere a ingresar los datos previamente creados de su cuenta. Se pedirá ingresar su usuario/email y su contraseña. Una vez logueado, podrá acceder a las funcionalidades de la app, como ver su perfil, otros perfiles o navegar por el feed, entre otros. La pestaña de Login también cuenta con un botón que dice: “No tiene cuenta? Regístrese aquí”. Dicho botón redireccionará al usuario a la página de registro para completar el proceso.
 
-### Making a Progressive Web App
+Antes de proceder a las funciones de “feed” y perfil, cabe aclarar que cualquier persona que no esté efectivamente “logueada” e intente acceder a dichas secciones será redirigido directamente a la sección de Login. La información de Login se mantendrá hasta que se deje de correr la aplicación, por lo que si usted se Loguea y navega entre secciones de la app no tendrá que volver a repetir el proceso de Login hasta volver a abrir la app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Una vez efectivamente logueado, usted podrá acceder a todas las funciones que ofrece la app. Comencemos con el perfil. Allí verá su nombre de usuario, foto de perfil, descripción, posteos y recuento de seguidores/seguidores. Cada uno de estos campos podrá ser editado a su gusto, así como realizar acciones sobre la privacidad de su perfil, poniéndolo público o privado, para restringir quién puede ver su contenido.
 
-### Advanced Configuration
+Asimismo, podrá visitar el perfil de otras personas. En caso que dicha persona tenga un perfil público, podrá ver sus posteos e historias sin necesidad de estar siguiéndola, de lo contrario, deberá enviar una solicitud y que dicha persona la acepte para así poder interactuar con su perfil a través de posteos o historias. En caso de seguirse mutuamente también podrá enviarse mensajes directos con otros usuarios. Usted tendrá la opción de bloquear usuarios para no permitir más interacciones, tanto de mensajes como visualizaciones en su perfil y posteos.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+En la sección de feed encontrará publicaciones y estados de cuentas a las que sigue. En la parte superior se desplegarán “historias”, estás tendrán un contorno circular que cuando sea presionado ocupará la pantalla y se mostrará su contenido. La característica de dichas historias o estados es que duran 24 horas, después se eliminan. También podrá ver posteos de usuarios. La manera de interactuar con estos es mediante un botón de “me gusta” o “like”, el cual quedará público para que el dueño del posteo y demás personas lo vean. Los comentarios en las publicaciones tendrán el mismo comportamiento. Los posteos no se borran automáticamente como las historias, quedan almacenados y a la vista en el perfil de cada usuario donde se pueden ver hasta que dicho usuario decida eliminarlos. Cuando un usuario reciba un me gusta o un comentario recibirá una notificación, al igual que si recibe un mensaje directo de otro usuario.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Una vez termine su uso en la app y la cierre, la próxima vez que ingrese deberá volver a loguearse con sus datos o crear otra cuenta registrándose.
